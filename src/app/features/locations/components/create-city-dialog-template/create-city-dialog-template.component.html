@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Add City</h2>
+
+<mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <input matInput [(ngModel)]="cityName" placeholder="Enter city name">
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onCloseDialog()">Cancel</button>
+  <button mat-button (click)="onCloseDialog()">Submit</button>
+</mat-dialog-actions>

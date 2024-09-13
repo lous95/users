@@ -1,0 +1,42 @@
+
+<div class="form-container">
+  <form [formGroup]="userForm" (ngSubmit)="submit()">
+    <div class="form-group display-row">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter your name" />
+      </mat-form-field>
+  
+      <mat-form-field>
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="birthdate">
+          <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+
+    <!-- Addresses -->
+     <!-- <app-address-form [formControlName]="address"></app-address-form> -->
+    <div class="form-group addresses-container">
+      <div *ngFor="let address of addresses; let i = index" class="address-form" formArrayName="addresses">
+        <app-address-form [formGroup]="address" [countries]="countries" (addCityEvent)="onAddCity($event)"></app-address-form>
+        <button mat-fab extended  type="button" (click)="removeAddress(i)">Remove Address</button>
+      </div>
+    </div>
+
+    <button class="form-group" mat-fab extended type="button" (click)="addAddress()">Add Address</button>
+
+    <div class="form-group">   
+      <div *ngIf="userForm.get('addresses')?.hasError('minAddresses')">
+        <p>You must add at least one address.</p>
+      </div> 
+      <button type="submit" [disabled]="!userForm.valid" mat-fab extended>
+        Submit
+      </button>
+    </div>
+    
+  </form>
+
+</div>

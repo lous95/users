@@ -1,0 +1,33 @@
+<div [formGroup]="formGroup" class="display-column">
+  <mat-form-field appearance="fill">
+    <mat-label>Address Name</mat-label>
+    <input matInput formControlName="name" placeholder="Address Name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Country</mat-label>
+    <mat-select formControlName="countryId">
+      <mat-option *ngFor="let country of countries" [value]="country.id">
+        {{ country.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="!!formGroup.get('countryId')?.value" class="display-row">
+    <mat-form-field appearance="fill">
+      <mat-label>City</mat-label>
+      <mat-select formControlName="cityId">
+        <mat-option *ngFor="let city of cities" [value]="city.id">
+            {{ city.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-fab extended type="button" (click)="addCity()">Add City</button>
+  </div>
+  
+  <mat-form-field appearance="fill">
+      <mat-label>Street</mat-label>
+      <input matInput formControlName="street" placeholder="Street" />
+  </mat-form-field>
+</div>
