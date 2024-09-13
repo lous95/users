@@ -9,7 +9,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { AddressFormComponent } from '../../../locations/components/address-form/address-form.component';
 import { UsersHttpService } from '../../services/users-http.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { LocationsHttpService } from '../../../locations/services/locations-http.service';
 import { Country } from '../../../locations/models/country';
@@ -44,7 +44,7 @@ export class UserFormComponent implements OnInit {
   // countries$!:Observable<Country[]>; 
 
   constructor(private fb: FormBuilder, private userHttpService: UsersHttpService, private router: Router,
-     private locationsHttpService: LocationsHttpService, private dialog: MatDialog){
+     private locationsHttpService: LocationsHttpService, private dialog: MatDialog, private route: ActivatedRoute){
 
   }
 
@@ -55,7 +55,8 @@ export class UserFormComponent implements OnInit {
       addresses: this.fb.array([], this.minAddressesValidator()),
     });
 
-    this.locationsHttpService.getCountries().subscribe((countries: Country[]) => this.countries = countries);
+    this.countries = this.route.snapshot.data['countries'] || [];
+    
   }
 
   get addresses(): FormGroup[] {
